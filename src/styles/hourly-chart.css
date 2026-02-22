@@ -1,9 +1,11 @@
+@import "./themes.css";
+
 .hourly-chart {
   grid-column: 1/4;
   grid-row: 7/9;
   padding: 10px;
   margin: 0 20px 10px 0;
-  border: 2px solid var(--search-background);
+  border: 2px solid var(--ui-border-soft);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -12,6 +14,7 @@
 }
 .hourly-chart > .label {
   font-weight: 700;
+  color: var(--text-strong);
 }
 .hourly-chart > .chart {
   flex: 1;
@@ -25,12 +28,12 @@
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: var(--font-shade);
+  color: var(--text-muted);
 }
 .hourly-chart .bar {
   /* border: 1px solid red; */
   width: 8px;
   flex: 1;
-  background-color: var(--nav-font-color);
+  background-color: var(--color-temp-bar);
   border-radius: 3px;
 }

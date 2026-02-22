@@ -1,3 +1,5 @@
+@import "./themes.css";
+
 .rain-forecast {
   /* border: 1px solid red; */
   grid-column: 4/6;
@@ -8,9 +10,9 @@
   padding: 10px;
   margin-top: -10px;
   gap: 20px;
-  background-color: var(--bg-extra-light);
-  color: var(--deep-font-shade);
-  border-bottom: 5px solid var(--shade);
+  background-color: var(--color-surface-alt);
+  color: var(--text-main);
+  border-bottom: 5px solid var(--ui-border-strong);
 }
 .rain-chart {
   flex: 1;
@@ -21,7 +23,7 @@
 }
 .rain-forecast > .label {
   font-weight: 700;
-  color: var(--nav-hover);
+  color: var(--text-strong);
 }
 .rain-data-point {
   /* border: 1px solid red; */
@@ -35,7 +37,7 @@
   width: 85%;
   height: 8px;
   border-radius: 3px;
-  background-color: var(--nav-hover);
+  background-color: var(--color-rain-bar);
   margin-left: auto;
 }
 .rain-legend {

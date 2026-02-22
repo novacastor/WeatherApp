@@ -5,6 +5,7 @@
 @import "./hourly-chart.css";
 @import "./rain-forecast.css";
 @import "./three-day-forecast.css";
+@import "./themes.css";
 
 * {
   padding: 0;
@@ -12,18 +13,39 @@
   box-sizing: border-box;
   list-style: none;
 }
+/* 1. Midnight (Default) */
 :root {
-  --bg-deep: #171b60;
-  --bg-light: #9d92e3;
-  --content-white: #ffffff;
-  --bg-extra-light: #f6f4fc;
-  --graph-color-light: #ebe8f9;
-  --nav-font-color: #858acf;
-  --nav-hover: #535f91;
-  --shade: #afb1c8;
-  --font-shade: #7f808d;
-  --deep-font-shade: #5d5f7d;
-  --search-background: #f6f6f6;
+  --color-primary: #171b60;
+  --color-secondary: #9d92e3;
+
+  --color-surface-main: #ffffff;
+  --color-surface-alt: #f6f4fc;
+
+  /* ⭐ NEW TEXT SYSTEM */
+  --text-strong: #1a1c2b; /* headings, city name, temps */
+  --text-main: #5d5f7d; /* normal text */
+  --text-muted: #7f808d; /* labels */
+  --text-inverse: #ffffff; /* text on dark/photo backgrounds */
+
+  --ui-border: #afb1c8;
+  --ui-input-bg: #f6f6f6;
+
+  --ui-nav-active: #535f91;
+  --ui-nav-inactive: #858acf;
+
+  --ui-graph-track: #ebe8f9;
+
+  --app-bg-gradient: linear-gradient(90deg, #171b60 20%, #9d92e3 20%);
+  --app-layout-gradient: linear-gradient(180deg, #ffffff, #171b60);
+
+  --ui-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --ui-shadow-btn: 0 4px 10px rgba(157, 146, 227, 0.4);
+
+  --color-temp-bar: #858acf;
+  --color-rain-bar: #535f91;
+
+  --ui-border-strong: var(--ui-border);
+  --ui-border-soft: color-mix(in srgb, var(--ui-border) 55%, transparent);
 }
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -32,7 +54,7 @@ body {
 }
 #app-background {
   z-index: 0;
-  background: linear-gradient(90deg, var(--bg-deep) 20%, var(--bg-light) 20%);
+  background: var(--app-bg-gradient);
   height: clamp(600px, 100vh, 900px);
   width: clamp(520px, 100vw, 1560px);
   display: flex;
@@ -45,7 +67,7 @@ body {
   height: 80vh;
   width: 80vw;
   border-radius: 50px;
-  background: linear-gradient(180deg, var(--content-white), var(--bg-deep));
+  background: var(--app-layout-gradient);
   padding: 7px;
   display: flex;
   overflow: hidden;
@@ -56,7 +78,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  background: var(--content-white);
+  background: var(--color-surface-main);
   border-radius: 0 43px 43px 0;
   padding: 0 0px 0px 10px;
   gap: 10px;

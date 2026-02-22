@@ -1,7 +1,9 @@
+@import "./themes.css";
+
 .sidebar {
   /* border: 1px solid red; */
-  background: var(--bg-deep);
-  color: var(--bg-extra-light);
+  background: var(--color-primary);
+  color: var(--text-inverse);
   border-radius: 43px 0 0 43px;
   width: calc(10vw - 4px);
 }
@@ -15,15 +17,15 @@
 .nav-list > li:hover {
   background: linear-gradient(
     90deg,
-    var(--content-white) 5%,
-    var(--nav-hover) 5%
+    var(--color-surface-main) 5%,
+    var(--ui-nav-active) 5%
   );
-  color: var(--content-white);
+  color: var(--color-surface-main);
   cursor: pointer;
   padding: 5% 20%;
 }
 .nav-list > li {
-  color: var(--nav-font-color);
+  color: var(--ui-nav-inactive);
   padding: 5% 10%;
   transition:
     background-color 0.3s ease-in-out,

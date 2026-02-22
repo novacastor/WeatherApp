@@ -1,3 +1,5 @@
+@import "./themes.css";
+
 .main-hero {
   /* border: 1px solid red; */
   grid-column: 1/4;
@@ -14,14 +16,16 @@
   grid-row: 1/2;
 }
 .location-label {
-  color: var(--font-shade);
+  color: var(--text-muted);
   font-size: small;
   font-weight: 600;
   margin-bottom: 10px;
 }
-/* .location-name{
-    
-} */
+
+.location-name {
+  color: var(--text-strong);
+}
+
 .weather-card {
   /* border: 1px solid red; */
   grid-column: 1/5;
@@ -32,7 +36,7 @@
   align-items: center;
   font-weight: 700;
   gap: 20px;
-  color: var(--bg-extra-light);
+  color: var(--text-strong);
   border-radius: 10px;
 
   background:
@@ -56,10 +60,10 @@
   justify-content: center;
 }
 .add-btn {
-  background: var(--search-background);
+  background: color-mix(in srgb, var(--color-secondary) 85%, white);
   border: 0;
   font-weight: 700;
-  color: var(--font-shade);
+  color: var(--text-inverse);
   width: 80%;
   height: 100%;
   border-radius: 10px;
@@ -70,12 +74,14 @@
 }
 .add-btn:hover {
   filter: brightness(1.15);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--ui-shadow-btn);
+  background: color-mix(in srgb, var(--color-secondary) 85%, white);
 }
 .add-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.2);
+  box-shadow: var(--ui-shadow);
   transform: scale(0.98);
+  background: color-mix(in srgb, var(--color-secondary) 85%, black);
 }
 .add-plus {
   font-size: xx-large;

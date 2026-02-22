@@ -1,3 +1,5 @@
+@import "./themes.css";
+
 .highlights-grid {
   /* border: 1px solid red; */
   grid-column: 1/4;
@@ -9,7 +11,7 @@
 }
 .highlights-grid > .card {
   flex: 1;
-  border: 2px solid var(--search-background);
+  border: 2px solid var(--ui-border-soft);
   border-radius: 10px;
   padding: 0px 25px;
   display: flex;
@@ -22,11 +24,12 @@
   margin-left: -20px;
   margin-top: 5px;
   /* border: 1px solid red; */
-  color: var(--font-shade);
+  color: var(--text-muted);
 }
 .highlights-grid .value {
   margin: 10px 0 20px 0;
   font-weight: 700;
+  color: var(--text-strong);
 }
 .highlights-grid .sun-data {
   flex: 2;
