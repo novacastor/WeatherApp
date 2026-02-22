@@ -1,0 +1,31 @@
+.sidebar {
+  /* border: 1px solid red; */
+  background: var(--bg-deep);
+  color: var(--bg-extra-light);
+  border-radius: 43px 0 0 43px;
+  width: calc(10vw - 4px);
+}
+.nav-list {
+  /* border: 1px solid red; */
+  margin: 50% 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.nav-list > li:hover {
+  background: linear-gradient(
+    90deg,
+    var(--content-white) 5%,
+    var(--nav-hover) 5%
+  );
+  color: var(--content-white);
+  cursor: pointer;
+  padding: 5% 20%;
+}
+.nav-list > li {
+  color: var(--nav-font-color);
+  padding: 5% 10%;
+  transition:
+    background-color 0.3s ease-in-out,
+    padding 0.2s ease-in-out;
+}

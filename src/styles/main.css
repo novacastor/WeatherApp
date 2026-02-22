@@ -1,0 +1,63 @@
+@import "./sidebar.css";
+@import "./header.css";
+@import "./main_hero.css";
+@import "./highlights-grid.css";
+@import "./hourly-chart.css";
+@import "./rain-forecast.css";
+@import "./three-day-forecast.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+:root {
+  --bg-deep: #171b60;
+  --bg-light: #9d92e3;
+  --content-white: #ffffff;
+  --bg-extra-light: #f6f4fc;
+  --graph-color-light: #ebe8f9;
+  --nav-font-color: #858acf;
+  --nav-hover: #535f91;
+  --shade: #afb1c8;
+  --font-shade: #7f808d;
+  --deep-font-shade: #5d5f7d;
+  --search-background: #f6f6f6;
+}
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#app-background {
+  z-index: 0;
+  background: linear-gradient(90deg, var(--bg-deep) 20%, var(--bg-light) 20%);
+  height: clamp(600px, 100vh, 900px);
+  width: clamp(520px, 100vw, 1560px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10%;
+}
+.app-layout {
+  z-index: 1;
+  height: 80vh;
+  width: 80vw;
+  border-radius: 50px;
+  background: linear-gradient(180deg, var(--content-white), var(--bg-deep));
+  padding: 7px;
+  display: flex;
+  overflow: hidden;
+}
+.dashboard-content {
+  /* border: 1px solid red; */
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  background: var(--content-white);
+  border-radius: 0 43px 43px 0;
+  padding: 0 0px 0px 10px;
+  gap: 10px;
+}

@@ -1,0 +1,39 @@
+.highlights-grid {
+  /* border: 1px solid red; */
+  grid-column: 1/4;
+  grid-row: 6/7;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 20px 0 0;
+}
+.highlights-grid > .card {
+  flex: 1;
+  border: 2px solid var(--search-background);
+  border-radius: 10px;
+  padding: 0px 25px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.highlights-grid .label {
+  font-size: 12px;
+  margin-left: -20px;
+  margin-top: 5px;
+  /* border: 1px solid red; */
+  color: var(--font-shade);
+}
+.highlights-grid .value {
+  margin: 10px 0 20px 0;
+  font-weight: 700;
+}
+.highlights-grid .sun-data {
+  flex: 2;
+}
+.sun-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  gap: 10px;
+}
