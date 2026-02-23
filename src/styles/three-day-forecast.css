@@ -25,7 +25,7 @@
 .forecast-card {
   flex: 1;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--ui-shadow);
   display: flex;
   align-items: center;
   font-weight: 700;

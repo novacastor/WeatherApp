@@ -55,8 +55,8 @@ body {
 #app-background {
   z-index: 0;
   background: var(--app-bg-gradient);
-  height: clamp(600px, 100vh, 900px);
-  width: clamp(520px, 100vw, 1560px);
+  height: clamp(700px, 100vh, 900px);
+  width: clamp(90px, 100vw, 1560px);
   display: flex;
   align-items: center;
   justify-content: flex-start;

@@ -3,6 +3,9 @@ const prettierPlugin = require("eslint-plugin-prettier");
 const prettierConfig = require("eslint-config-prettier");
 
 module.exports = [
+  {
+    ignores: ["dist/**", "node_modules/**"],
+  },
   js.configs.recommended,
 
   // Node files (webpack + config files)
