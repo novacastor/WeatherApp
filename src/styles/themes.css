@@ -307,3 +307,37 @@
   /* rain → deep green */
   --color-rain-bar: #14532d; /* deep forest green */
 }
+.theme-default{
+  --color-primary: #171b60;
+  --color-secondary: #9d92e3;
+
+  --color-surface-main: #ffffff;
+  --color-surface-alt: #f6f4fc;
+
+  /* ⭐ NEW TEXT SYSTEM */
+  --text-strong: #1a1c2b; /* headings, city name, temps */
+  --text-main: #5d5f7d; /* normal text */
+  --text-muted: #7f808d; /* labels */
+  --text-inverse: #ffffff; /* text on dark/photo backgrounds */
+  --weather-card-text: var(--text-inverse);
+
+  --ui-border: #afb1c8;
+  --ui-input-bg: #f6f6f6;
+
+  --ui-nav-active: #535f91;
+  --ui-nav-inactive: #858acf;
+
+  --ui-graph-track: #ebe8f9;
+
+  --app-bg-gradient: linear-gradient(90deg, #171b60 20%, #9d92e3 20%);
+  --app-layout-gradient: linear-gradient(180deg, #ffffff, #171b60);
+
+  --ui-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --ui-shadow-btn: 0 4px 10px rgba(157, 146, 227, 0.4);
+
+  --color-temp-bar: #858acf;
+  --color-rain-bar: #535f91;
+
+  --ui-border-strong: var(--ui-border);
+  --ui-border-soft: color-mix(in srgb, var(--ui-border) 55%, transparent);
+}

@@ -33,7 +33,9 @@
 .hourly-chart .bar {
   /* border: 1px solid red; */
   width: 8px;
-  flex: 1;
+  align-items: baseline;
+  margin-top: auto;
+  /* flex: 1; */
   background-color: var(--color-temp-bar);
   border-radius: 3px;
 }

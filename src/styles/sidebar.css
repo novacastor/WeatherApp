@@ -14,20 +14,24 @@
   flex-direction: column;
   gap: 30px;
 }
-.nav-list > li:hover {
-  background: linear-gradient(
-    90deg,
-    var(--color-surface-main) 5%,
-    var(--ui-nav-active) 5%
-  );
-  color: var(--color-surface-main);
-  cursor: pointer;
-  padding: 5% 20%;
-}
 .nav-list > li {
   color: var(--ui-nav-inactive);
   padding: 5% 10%;
   transition:
     background-color 0.3s ease-in-out,
     padding 0.2s ease-in-out;
+}
+.nav-list > li:hover,
+.nav-list > li.active {
+  background: var(--ui-nav-active);
+  color: var(--color-surface-main);
+  cursor: pointer;
+  padding: 5% 20%;
+}
+.nav-list > li.active{
+  background: linear-gradient(
+    90deg,
+    #ffffff 5%,
+    var(--ui-nav-active) 5%
+  );
 }

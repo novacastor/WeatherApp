@@ -29,7 +29,7 @@
   /* border: 1px solid red; */
   display: flex;
   gap: 10px;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 .rain-data-point > .bar {
@@ -38,7 +38,10 @@
   height: 8px;
   border-radius: 3px;
   background-color: var(--color-rain-bar);
-  margin-left: auto;
+  /* margin-left: auto; */
+}
+.rain-data-point > span{
+  width: 50px;
 }
 .rain-legend {
   display: flex;
