@@ -32,6 +32,10 @@ module.exports = [
       globals: {
         window: "readonly",
         document: "readonly",
+        console: "readonly",
+        fetch: "readonly",
+        localStorage: "readonly",
+        sessionStorage: "readonly",
       },
     },
 

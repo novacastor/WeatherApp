@@ -1,4 +1,4 @@
-@import "./themes.css";
+@import "./../themes.css";
 
 .highlights-grid {
   /* border: 1px solid red; */
@@ -29,6 +29,7 @@
 .highlights-grid .value {
   margin: 10px 0 20px 0;
   font-weight: 700;
+  font-size: 1rem;
   color: var(--text-strong);
 }
 .highlights-grid .sun-data {
@@ -37,6 +38,7 @@
 .sun-times {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: 1rem;
   gap: 10px;
 }

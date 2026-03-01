@@ -25,6 +25,10 @@ export function loadSettings() {
   const themeGrid = document.createElement("div");
   themeGrid.classList.add("theme-grid");
 
+  const themeLabel = document.createElement("div");
+  themeLabel.classList.add("label");
+  themeLabel.textContent = "Themes";
+
   themes.forEach((theme) => {
     let themeBtn = createThemeBtn(theme);
     themeGrid.appendChild(themeBtn);
@@ -32,6 +36,8 @@ export function loadSettings() {
       themeBtn.classList.add("active");
     }
   });
+
+  DOM.main.appendChild(themeLabel);
   DOM.main.appendChild(themeGrid);
   initSettingsListeners();
 }

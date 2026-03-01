@@ -10,6 +10,8 @@ import {
 import * as DOM from "./modules/domElements.js";
 import { initSidebarListeners } from "./modules/eventHandlers.js";
 
+export let currentSection = DOM.sidebarAnalytics;
+
 const tempTimeArr = [
   "09am",
   "10am",
@@ -64,8 +66,9 @@ DOM.topBar.replaceWith(newTopBar);
 
 initSidebarListeners();
 document.body.className = "theme-default";
+
 // const clickEvent = new Event('click');
-// DOM.settings.dispatchEvent(clickEvent);
+// DOM.sidebarLocations.dispatchEvent(clickEvent);
 // document.body.className = "theme-ember-spectrum";
 // document.body.className = "theme-aurora";
 // document.body.className = "theme-editorial";

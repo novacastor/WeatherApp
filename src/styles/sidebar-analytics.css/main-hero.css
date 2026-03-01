@@ -1,4 +1,4 @@
-@import "./themes.css";
+@import "./../themes.css";
 
 .main-hero {
   /* border: 1px solid red; */
@@ -49,7 +49,8 @@
 }
 .weather-card > .temperature {
   /* border: 1px solid red; */
-  font-size: 30px;
+  /* font-size: 30px; */
+  font-size: 2rem;
 }
 .action-area {
   /* border: 1px solid red; */
@@ -84,5 +85,5 @@
   background: color-mix(in srgb, var(--color-secondary) 85%, black);
 }
 .add-plus {
-  font-size: xx-large;
+  font-size: 3rem;
 }

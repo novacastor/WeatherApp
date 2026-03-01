@@ -1,3 +1,4 @@
+let currentSection = null;
 export function generateTopBar() {
   const topBar = document.createElement("header");
   topBar.classList.add("top-bar");
@@ -326,4 +327,10 @@ function createForecastCard(i, day, minTemp, maxTemp) {
   }
 
   return forecastCard;
+}
+export function setCurrentSection(sectionName) {
+  currentSection = sectionName;
+}
+export function getCurrentSection() {
+  return currentSection;
 }
