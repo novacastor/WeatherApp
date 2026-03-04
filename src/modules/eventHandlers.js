@@ -1,32 +1,26 @@
 import * as DOM from "./domElements.js";
 import { loadSettings } from "./settings.js";
-import { loadAnalytics } from "./analytics.js";
-import { load_locations } from "./locations.js";
+import { loadHome } from "./home.js";
+import { loadLocations } from "./locations.js";
+import { loadForecast } from "./forecast.js";
 import { setCurrentSection } from "./domUtils.js";
 
-function removeActiveSidebar() {
-  DOM.sidebarList.forEach((e) => {
-    e.classList.remove("active");
-  });
-}
 export function initSidebarListeners() {
   DOM.sidebarSettings.addEventListener("click", () => {
-    removeActiveSidebar();
-    DOM.sidebarSettings.classList.add("active");
     setCurrentSection("settings");
     loadSettings();
   });
-  DOM.sidebarAnalytics.addEventListener("click", () => {
-    removeActiveSidebar();
-    DOM.sidebarAnalytics.classList.add("active");
-    setCurrentSection("analytics");
-    loadAnalytics();
+  DOM.sidebarHome.addEventListener("click", () => {
+    setCurrentSection("home");
+    loadHome();
   });
   DOM.sidebarLocations.addEventListener("click", () => {
-    removeActiveSidebar();
-    DOM.sidebarLocations.classList.add("active");
     setCurrentSection("locations");
-    load_locations();
+    loadLocations();
+  });
+  DOM.sidebarForecast.addEventListener("click", () => {
+    setCurrentSection("forecast");
+    loadForecast();
   });
   //     function debounce(fn, delay) {
   //     let timeout;
@@ -73,10 +67,8 @@ export function initLocationsListeners() {
   const locationBtns = document.querySelectorAll(".location-button");
   locationBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      removeActiveSidebar();
-      DOM.sidebarAnalytics.classList.add("active");
-      setCurrentSection("analytics");
-      loadAnalytics();
+      setCurrentSection("home");
+      loadHome();
     });
   });
 }

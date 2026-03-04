@@ -20,10 +20,12 @@
   --ui-graph-track: #e0e7ff;
 
   --app-bg-gradient:
-    radial-gradient(circle at 20% 30%, #7c9cff, transparent 40%),
-    radial-gradient(circle at 80% 70%, #00d4ff, transparent 40%), #020617;
+    radial-gradient(circle at 20% 30%, var(--color-secondary), transparent 40%),
+    radial-gradient(circle at 80% 70%, var(--color-rain-bar), transparent 40%), #020617;
 
-  --app-layout-gradient: rgba(255, 255, 255, 0.2);
+  --app-layout-gradient:     
+    radial-gradient(circle at 20% 30%, var(--color-rain-bar), transparent 40%),
+    radial-gradient(circle at 80% 70%, var(--color-secondary), transparent 40%), #057381b8;
 
   --ui-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   --ui-shadow-btn: 0 10px 25px rgba(79, 70, 229, 0.4);

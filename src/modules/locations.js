@@ -2,114 +2,109 @@
 import * as DOM from "./domElements.js";
 import { getCityImageUrl } from "./apiServices";
 import { initLocationsListeners } from "./eventHandlers.js";
-import { getCurrentSection } from "./domUtils.js";
-const locations = [
-  {
-    city: "Paris",
-    temp: 12,
-    day: "Monday",
-    time: "14:30",
-    description: "Partly cloudy",
-  },
-  {
-    city: "New York",
-    temp: 18,
-    day: "Tuesday",
-    time: "09:15",
-    description: "Sunny",
-  },
-  {
-    city: "Tokyo",
-    temp: 22,
-    day: "Wednesday",
-    time: "20:45",
-    description: "Clear sky",
-  },
-  {
-    city: "London",
-    temp: 9,
-    day: "Thursday",
-    time: "11:00",
-    description: "Light rain",
-  },
-  {
-    city: "Sydney",
-    temp: 25,
-    day: "Friday",
-    time: "16:10",
-    description: "Warm and sunny",
-  },
-  {
-    city: "Cairo",
-    temp: 30,
-    day: "Saturday",
-    time: "13:50",
-    description: "Hot and dry",
-  },
-];
+import { getCurrentSection, getWeatherIcon } from "./domUtils.js";
+import { getLocations } from "../assets/weather-data/loadData.js";
 
 async function createLocationButton(location) {
   const btn = document.createElement("button");
   btn.classList.add("location-button");
 
-  const citySpan = document.createElement("span");
+  // --- HEADER SECTION (City, Country, Time) ---
+  const headerContainer = document.createElement("div");
+  headerContainer.classList.add("card-header");
+
+  const citySpan = document.createElement("div");
   citySpan.classList.add("city-name");
-  citySpan.textContent = location.city;
-
-  const weatherContainer = document.createElement("div");
-  weatherContainer.classList.add("weather-info");
-
-  const tempSpan = document.createElement("span");
-  tempSpan.classList.add("temperature");
-  tempSpan.textContent = location.temp + "°C";
-
-  const descriptionSpan = document.createElement("span");
-  descriptionSpan.classList.add("weather-description");
-  descriptionSpan.textContent = location.description;
-
-  weatherContainer.appendChild(tempSpan);
-  weatherContainer.appendChild(descriptionSpan);
+  citySpan.textContent = location.city + ", " + location.country;
 
   const dayTimeContainer = document.createElement("div");
   dayTimeContainer.classList.add("day-time");
 
-  const daySpan = document.createElement("span");
+  const daySpan = document.createElement("div");
   daySpan.classList.add("day");
   daySpan.textContent = location.day;
 
-  const timeSpan = document.createElement("span");
+  const timeSpan = document.createElement("div");
   timeSpan.classList.add("time");
   timeSpan.textContent = location.time;
 
-  dayTimeContainer.appendChild(daySpan);
-  dayTimeContainer.appendChild(timeSpan);
+  dayTimeContainer.append(daySpan, timeSpan);
+  headerContainer.append(citySpan, dayTimeContainer);
 
+  // --- MAIN SECTION (Big Temp & Icon) ---
+  const mainContainer = document.createElement("div");
+  mainContainer.classList.add("card-main");
+
+  const currTempSpan = document.createElement("div");
+  currTempSpan.classList.add("current-temperature");
+  currTempSpan.innerHTML = `${location.curr_temp}&deg;`; // using HTML entity for crisp degree symbol
+
+  const icon = document.createElement("img");
+  icon.classList.add("weather-icon");
+  icon.src = getWeatherIcon(location.weatherDescription);
+
+  mainContainer.append(currTempSpan, icon);
+
+  // --- FOOTER SECTION (Description, High/Low, Feels Like) ---
+  const footerContainer = document.createElement("div");
+  footerContainer.classList.add("card-footer");
+
+  const weatherDescriptionSpan = document.createElement("div");
+  weatherDescriptionSpan.classList.add("description");
+  weatherDescriptionSpan.textContent = location.weatherDescription;
+
+  const statsContainer = document.createElement("div");
+  statsContainer.classList.add("stats-container");
+
+  const lowestTempSpan = document.createElement("div");
+  lowestTempSpan.classList.add("lowest_temperature");
+  lowestTempSpan.innerHTML = "L: " + location.lowest_temp + "&deg;";
+
+  const highestTempSpan = document.createElement("div");
+  highestTempSpan.classList.add("highest_temperature");
+  highestTempSpan.innerHTML = "H: " + location.highest_temp + "&deg;";
+
+  const lowHighTempContainer = document.createElement("div");
+  lowHighTempContainer.classList.add("low-high-temp");
+  lowHighTempContainer.append(lowestTempSpan, highestTempSpan);
+
+  const feelslikeSpan = document.createElement("div");
+  feelslikeSpan.classList.add("feelslike");
+  feelslikeSpan.innerHTML = "Feels like " + location.feelslike + "&deg;";
+
+  statsContainer.append(lowHighTempContainer, feelslikeSpan);
+  footerContainer.append(weatherDescriptionSpan, statsContainer);
+
+  // --- APPLY BACKGROUND ---
   const url = await getCityImageUrl(location.city);
+
+  // Create a nice gradient that is lighter at the top and darker at the bottom for readability
+  const gradient = `linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 1) 100%)`;
+
   if (url) {
-    btn.style.background = `
-            linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-            url("${url}")
-        `;
+    btn.style.backgroundImage = `${gradient}, url("${url}")`;
   } else {
-    btn.style.background = `
-            linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
-        `;
+    btn.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7))`;
   }
 
-  btn.appendChild(citySpan);
-  btn.appendChild(weatherContainer);
-  btn.appendChild(dayTimeContainer);
+  // Ensure background scales perfectly
+  btn.style.backgroundSize = "cover";
+  btn.style.backgroundPosition = "center";
+  btn.style.backgroundRepeat = "no-repeat";
+
+  // Append all sections to the button
+  btn.append(headerContainer, mainContainer, footerContainer);
 
   return btn;
 }
 
-export async function load_locations() {
+export async function loadLocations() {
   DOM.main.innerHTML = "";
   const container = document.createElement("div");
   container.classList.add("location-buttons-container");
 
   const buttons = await Promise.all(
-    locations.map((locationData) => createLocationButton(locationData)),
+    getLocations().map((locationData) => createLocationButton(locationData)),
   );
   buttons.forEach((button) => container.appendChild(button));
   if (getCurrentSection() === "locations") {

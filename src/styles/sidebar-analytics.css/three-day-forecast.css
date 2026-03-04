@@ -45,6 +45,20 @@
   border-radius: 10px;
 }
 
+.forecast-card .min-temp, .max-temp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.forecast-card .max-temp .temp-arrow{
+  transform: scale(0.64);
+}
+.forecast-card .temp-arrow{
+  height: 3rem;
+  vertical-align: middle;
+  object-fit: contain; 
+}
+
 .forecast-card .day-name {
   flex: 1;
   display: flex;

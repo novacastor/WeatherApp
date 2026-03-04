@@ -8,6 +8,7 @@
 @import "./themes.css";
 @import "./sidebar-settings.css";
 @import "./sidebar-locations.css";
+@import "./sidebar-forecast.css";
 
 * {
   padding: 0;
@@ -92,4 +93,5 @@ body {
   border-radius: 0 43px 43px 0;
   padding-left: 10px;
   gap: 10px;
+  overflow: hidden;
 }

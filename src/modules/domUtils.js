@@ -1,4 +1,30 @@
 let currentSection = null;
+import sunnyIcon from "./../assets/weather-icons/wi-day-sunny.svg";
+import partlyCloudyIcon from "./../assets/weather-icons/wi-day-cloudy.svg";
+import cloudyIcon from "./../assets/weather-icons/wi-cloudy.svg";
+import rainIcon from "./../assets/weather-icons/wi-rain.svg";
+import heavyRainIcon from "./../assets/weather-icons/wi-thunderstorm.svg";
+import snowIcon from "./../assets/weather-icons/wi-snow.svg";
+import fogIcon from "./../assets/weather-icons/wi-fog.svg";
+import hotIcon from "./../assets/weather-icons/wi-hot.svg";
+import naIcon from "./../assets/weather-icons/wi-na.svg";
+
+import arrowUp from "./../assets/weather-icons/wi-direction-up.svg";
+import arrowDown from "./../assets/weather-icons/wi-direction-down.svg";
+import arrowLeft from "./../assets/weather-icons/wi-direction-left.svg";
+import arrowRight from "./../assets/weather-icons/wi-direction-right.svg";
+
+import sunriseIcon from "./../assets/weather-icons/wi-sunrise.svg";
+import sunsetIcon from "./../assets/weather-icons/wi-sunset.svg";
+
+import humidityIcon from "./../assets/weather-icons/wi-humidity.svg";
+import precipitationIcon from "./../assets/weather-icons/wi-umbrella.svg";
+import cloudIcon from "./../assets/weather-icons/wi-cloud.svg";
+import windIcon from "./../assets/weather-icons/wi-strong-wind.svg";
+import uvIcon from "./../assets/weather-icons/wi-day-sunny.svg"; // generic UV icon
+
+import * as DOM from "./domElements.js";
+
 export function generateTopBar() {
   const topBar = document.createElement("header");
   topBar.classList.add("top-bar");
@@ -97,13 +123,7 @@ export function generateWeatherCardSection(
   return weatherCardSection;
 }
 
-export function generateHighlightsGrid(
-  precipitation,
-  humidity,
-  wind,
-  sunrise,
-  sunset,
-) {
+export function generateHighlightsGrid(data) {
   const highlightsGrid = document.createElement("section");
   highlightsGrid.classList.add("highlights-grid");
 
@@ -117,7 +137,7 @@ export function generateHighlightsGrid(
   precipitationValue.classList.add("value");
 
   precipitationLabel.textContent = "Precipitation";
-  precipitationValue.textContent = precipitation + "%";
+  precipitationValue.textContent = data.precipitation + "%";
 
   precipitationCard.appendChild(precipitationLabel);
   precipitationCard.appendChild(precipitationValue);
@@ -132,7 +152,7 @@ export function generateHighlightsGrid(
   humidityValue.classList.add("value");
 
   humidityLabel.textContent = "Humidity";
-  humidityValue.textContent = humidity + "%";
+  humidityValue.textContent = data.humidity + "%";
 
   humidityCard.appendChild(humidityLabel);
   humidityCard.appendChild(humidityValue);
@@ -147,7 +167,7 @@ export function generateHighlightsGrid(
   windValue.classList.add("value");
 
   windLabel.textContent = "Wind";
-  windValue.textContent = wind + " KM/H";
+  windValue.textContent = data.wind + " KM/H";
 
   windCard.appendChild(windLabel);
   windCard.appendChild(windValue);
@@ -166,24 +186,24 @@ export function generateHighlightsGrid(
   sunsetTime.classList.add("value");
 
   sundataLabel.textContent = "Sunrise & Sunset";
-  sunriseTime.textContent = sunrise + " AM";
-  sunsetTime.textContent = sunset + " PM";
+  sunriseTime.textContent = data.sunrise;
+  sunsetTime.textContent = data.sunset;
 
   sunTimes.appendChild(sunriseTime);
   sunTimes.appendChild(sunsetTime);
   sundataCard.appendChild(sundataLabel);
   sundataCard.appendChild(sunTimes);
+  highlightsGrid.appendChild(windCard);
   /*------------------------------------------------------------------------*/
 
   highlightsGrid.appendChild(precipitationCard);
   highlightsGrid.appendChild(humidityCard);
-  highlightsGrid.appendChild(windCard);
   highlightsGrid.appendChild(sundataCard);
 
   return highlightsGrid;
 }
 
-export function generateTemperatureChart(timeArr, tempArr) {
+export function generateTemperatureChart(data) {
   const tempSection = document.createElement("section");
   tempSection.classList.add("hourly-chart");
 
@@ -194,8 +214,8 @@ export function generateTemperatureChart(timeArr, tempArr) {
   const tempChart = document.createElement("div");
   tempChart.classList.add("chart");
 
-  timeArr.forEach((time, i) => {
-    const tempBar = createTempBar(time, tempArr[i]);
+  data.forEach((pt) => {
+    const tempBar = createTempBar(pt.time, pt.temp);
     tempChart.appendChild(tempBar);
   });
 
@@ -213,7 +233,7 @@ function createTempBar(time, temp) {
   tempBar.style.height = temp * 2.5 + "%";
   tempBar.title = `${temp}°`;
 
-  const timeSpan = document.createElement("span");
+  const timeSpan = document.createElement("div");
   timeSpan.textContent = time;
 
   dataPt.appendChild(tempBar);
@@ -222,7 +242,7 @@ function createTempBar(time, temp) {
   return dataPt;
 }
 
-export function generateRainForecast(timeArr, forecastArr) {
+export function generateRainForecast(data) {
   const rainAside = document.createElement("aside");
   rainAside.classList.add("rain-forecast");
 
@@ -233,8 +253,8 @@ export function generateRainForecast(timeArr, forecastArr) {
   const rainChart = document.createElement("div");
   rainChart.classList.add("rain-chart");
 
-  timeArr.forEach((time, i) => {
-    const rainBar = createRainBar(time, forecastArr[i]);
+  data.forEach((pt) => {
+    const rainBar = createRainBar(pt.time, pt.precipitation);
     rainChart.appendChild(rainBar);
   });
 
@@ -250,13 +270,9 @@ export function generateRainForecast(timeArr, forecastArr) {
   const rainSwatchHeavyRain = document.createElement("li");
   rainSwatchHeavyRain.textContent = "Heavy Rain";
 
-  rainLegend.appendChild(rainSwatchSunny);
-  rainLegend.appendChild(rainSwatchRainy);
-  rainLegend.appendChild(rainSwatchHeavyRain);
+  rainLegend.append(rainSwatchSunny, rainSwatchRainy, rainSwatchHeavyRain);
 
-  rainAside.appendChild(label);
-  rainAside.appendChild(rainChart);
-  rainAside.appendChild(rainLegend);
+  rainAside.append(label, rainChart, rainLegend);
 
   return rainAside;
 }
@@ -264,7 +280,7 @@ function createRainBar(time, forecast) {
   const dataPt = document.createElement("div");
   dataPt.classList.add("rain-data-point");
 
-  const timeSpan = document.createElement("span");
+  const timeSpan = document.createElement("div");
   timeSpan.textContent = time;
 
   const forecastBar = document.createElement("div");
@@ -287,7 +303,7 @@ export function generateThreeDayForecast(forecast) {
 
   const forecastCardList = document.createElement("ul");
   forecastCardList.classList.add("forecast-list");
-
+  // console.log("forecast: "+ forecast);
   forecast.forEach((e, i) => {
     const forecastCard = createForecastCard(i, e.day, e.minTemp, e.maxTemp);
     forecastCardList.appendChild(forecastCard);
@@ -302,18 +318,23 @@ function createForecastCard(i, day, minTemp, maxTemp) {
   const forecastCard = document.createElement("li");
   forecastCard.classList.add("forecast-card");
 
-  const dayNameSpan = document.createElement("span");
+  const dayNameSpan = document.createElement("div");
   dayNameSpan.classList.add("day-name");
   dayNameSpan.textContent = day;
 
-  const tempMinMaxSpan = document.createElement("span");
+  const tempMinMaxSpan = document.createElement("div");
   tempMinMaxSpan.classList.add("temp-min-max");
 
-  const minTempSpan = document.createElement("span");
-  minTempSpan.textContent = `${minTemp}°C`;
+  const minTempIcon = getDirectionIcon("down");
+  const maxTempIcon = getDirectionIcon("up");
 
-  const maxTempSpan = document.createElement("span");
-  maxTempSpan.textContent = `${maxTemp}°C`;
+  const minTempSpan = document.createElement("div");
+  minTempSpan.classList.add("min-temp");
+  minTempSpan.innerHTML = `<img src="${minTempIcon}" class="temp-arrow" alt="down arrow"> ${minTemp}°C`;
+
+  const maxTempSpan = document.createElement("div");
+  maxTempSpan.classList.add("max-temp");
+  maxTempSpan.innerHTML = `<img src="${maxTempIcon}" class="temp-arrow" alt="up arrow"> ${maxTemp}°C`;
 
   if (i !== 1) {
     forecastCard.appendChild(dayNameSpan);
@@ -329,8 +350,81 @@ function createForecastCard(i, day, minTemp, maxTemp) {
   return forecastCard;
 }
 export function setCurrentSection(sectionName) {
+  DOM.sidebarList.forEach((e) => {
+    e.classList.remove("active");
+  });
+
   currentSection = sectionName;
+
+  if (sectionName === "home") {
+    DOM.sidebarHome.classList.add("active");
+  } else if (sectionName === "settings") {
+    DOM.sidebarSettings.classList.add("active");
+  } else if (sectionName === "locations") {
+    DOM.sidebarLocations.classList.add("active");
+  } else if (sectionName === "forecast") {
+    DOM.sidebarForecast.classList.add("active");
+  }
 }
 export function getCurrentSection() {
   return currentSection;
+}
+
+export function getDirectionIcon(direction) {
+  const dir = direction.toLowerCase();
+  if (dir.includes("up")) return arrowUp;
+  if (dir.includes("down")) return arrowDown;
+  if (dir.includes("right")) return arrowRight;
+  if (dir.includes("left")) return arrowLeft;
+}
+
+export function getWeatherIcon(description) {
+  const desc = description.toLowerCase();
+  if (desc.includes("sunny") || desc.includes("clear")) return sunnyIcon;
+  if (desc.includes("partly cloudy")) return partlyCloudyIcon;
+  if (desc.includes("cloud")) return cloudyIcon;
+  if (desc.includes("rain") && !desc.includes("heavy")) return rainIcon;
+  if (desc.includes("heavy rain") || desc.includes("thunderstorm"))
+    return heavyRainIcon;
+  if (desc.includes("snow")) return snowIcon;
+  if (desc.includes("fog") || desc.includes("mist") || desc.includes("haze"))
+    return fogIcon;
+  if (desc.includes("hot")) return hotIcon;
+  return naIcon;
+}
+
+export function getMaxTempIcon() {
+  return getDirectionIcon("up");
+}
+
+export function getMinTempIcon() {
+  return getDirectionIcon("down");
+}
+
+export function getSunriseIcon() {
+  return sunriseIcon;
+}
+
+export function getSunsetIcon() {
+  return sunsetIcon;
+}
+
+export function getHumidityIcon() {
+  return humidityIcon;
+}
+
+export function getPrecipitationIcon() {
+  return precipitationIcon;
+}
+
+export function getCloudIcon() {
+  return cloudIcon;
+}
+
+export function getWindIcon() {
+  return windIcon;
+}
+
+export function getUVIcon() {
+  return uvIcon;
 }

@@ -1,5 +1,6 @@
 import * as DOM from "./domElements.js";
 import { initSettingsListeners } from "./eventHandlers.js";
+import { getThemes } from "../assets/weather-data/loadData.js";
 
 function createThemeBtn(name) {
   const btn = document.createElement("button");
@@ -9,17 +10,6 @@ function createThemeBtn(name) {
 
   return btn;
 }
-let themes = [
-  "default",
-  "aurora",
-  "editorial",
-  "alpine",
-  "ember-spectrum",
-  "slate-pro",
-  "carbon-dark",
-  "notion-clean",
-  "midnight-glass",
-];
 export function loadSettings() {
   DOM.main.innerHTML = "";
   const themeGrid = document.createElement("div");
@@ -29,7 +19,7 @@ export function loadSettings() {
   themeLabel.classList.add("label");
   themeLabel.textContent = "Themes";
 
-  themes.forEach((theme) => {
+  getThemes().forEach((theme) => {
     let themeBtn = createThemeBtn(theme);
     themeGrid.appendChild(themeBtn);
     if ("theme-" + themeBtn.id === document.body.className) {

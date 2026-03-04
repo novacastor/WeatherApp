@@ -1,8 +1,8 @@
 export async function getCityImageUrl(name) {
   try {
     const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(
-      name,
-    )}&gsrlimit=1&prop=pageimages&pithumbsize=400&format=json&origin=*`;
+      name + " ",
+    )}&gsrlimit=1&prop=pageimages&pithumbsize=300&format=json&origin=*`;
 
     const response = await fetch(url);
     if (!response.ok) {

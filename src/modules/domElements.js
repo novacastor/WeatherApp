@@ -9,10 +9,12 @@ export const threeDayForecastAside = document.querySelector(
 export const weatherCardSection = document.querySelector(".main-hero");
 export const topBar = document.querySelector(".top-bar");
 
+export const sidebar = document.querySelector(".sidebar");
+
 export const sidebarSettings = document.querySelector(".settings");
 export const sidebarLocations = document.querySelector(".locations");
-export const sidebarAnalytics = document.querySelector(".analytics");
-export const sidebar = document.querySelector(".sidebar");
+export const sidebarHome = document.querySelector(".home");
+export const sidebarForecast = document.querySelector(".forecast");
 
 export const main = document.querySelector("main");
 export const themeBtns = document.querySelectorAll(".theme-btn");
