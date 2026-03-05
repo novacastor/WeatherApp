@@ -1,8 +1,8 @@
 import "./styles/main.css";
 import { loadHome } from "./modules/home.js";
-import { loadForecast } from "./modules/forecast.js";
+// import { loadForecast } from "./modules/forecast.js";
 import { initSidebarListeners } from "./modules/eventHandlers.js";
-import { initLocations } from "./modules/storageManager.js";
+// import { initLocations } from "./modules/storageManager.js";
 // initLocations();
 // loadForecast();
 loadHome();

@@ -89,12 +89,12 @@ export async function loadForecast() {
   DOM.main.innerHTML = "";
   setCurrentSection("forecast");
 
-  const header = document.createElement('div');
+  const header = document.createElement("div");
   const container = document.createElement("div");
-  
+
   const forecasts = await loadWeeklyForecast();
   container.classList.add("forecasts-container");
-  header.classList.add('forecasts-header');
+  header.classList.add("forecasts-header");
   header.innerHTML = `<span>${getCurrentLocation().toUpperCase()}</span>`;
 
   forecasts.forEach((f) => container.appendChild(createCard(f)));

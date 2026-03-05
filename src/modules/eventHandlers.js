@@ -4,7 +4,11 @@ import { loadHome } from "./home.js";
 import { loadLocations } from "./locations.js";
 import { loadForecast } from "./forecast.js";
 import { setCurrentSection } from "./domUtils.js";
-import { getCurrentLocation, markForPermanentStorage, saveAllData } from "./storageManager.js";
+import {
+  getCurrentLocation,
+  markForPermanentStorage,
+  saveAllData,
+} from "./storageManager.js";
 import { setCurrentLocation } from "./storageManager.js";
 import { verifySearch } from "./apiServices.js";
 
@@ -32,17 +36,17 @@ export function initHomeListeners() {
   const searchIcon = document.querySelector(".search-icon");
   const addCityBtn = document.querySelector(".add-btn");
 
-  addCityBtn.addEventListener('click', () => {
+  addCityBtn.addEventListener("click", () => {
     const curr_city = getCurrentLocation();
-    if(curr_city) markForPermanentStorage(curr_city);
+    if (curr_city) markForPermanentStorage(curr_city);
     saveAllData();
-    setCurrentSection('locations');
+    setCurrentSection("locations");
     loadLocations();
   });
-  searchInput.addEventListener('keypress', (e) => {
-    if(e.key === "Enter") handleSearch();
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSearch();
   });
-  searchIcon.addEventListener('click', handleSearch);
+  searchIcon.addEventListener("click", handleSearch);
 }
 
 export function initSettingsListeners() {
@@ -63,29 +67,29 @@ export function initLocationsListeners() {
     btn.addEventListener("click", () => {
       setCurrentLocation(btn.id);
       setCurrentSection("home");
-      
+
       loadHome();
     });
   });
 }
 async function handleSearch() {
   const city_name = document.querySelector("#search").value.trim();
-  if(!city_name) {
+  if (!city_name) {
     return;
   }
   console.log("Inside handle Search");
   console.log("Search disabled");
   DOM.searchInput.disabled = true;
   DOM.searchWrapper.classList.add("loading");
-  try{
+  try {
     const result = await verifySearch(city_name);
-    if(result.isValid) {
+    if (result.isValid) {
       setCurrentLocation(result.name);
       await loadHome();
       DOM.searchInput.value = "";
-    }else{
+    } else {
       alert("Sorry couldn't find the city");
-    } 
+    }
   } catch (error) {
     alert("Connection Error");
   } finally {

@@ -3,12 +3,10 @@ import * as DOM from "./domElements.js";
 import { getCityImageUrl } from "./apiServices";
 import { initLocationsListeners } from "./eventHandlers.js";
 import { getCurrentSection, getWeatherIcon } from "./domUtils.js";
-import { 
+import {
   getLocations,
   initLocations,
   loadCurrentDayHighlights,
-  loadData,
-  setCurrentLocation,
 } from "./storageManager.js";
 
 async function createLocationButton(location) {
@@ -111,14 +109,15 @@ export async function loadLocations() {
   const buttons = await Promise.all(
     getLocations().map(async (loc) => {
       let locationData = await loadCurrentDayHighlights(loc.city);
-      
-      if(locationData) return await createLocationButton(locationData);
-      
+
+      if (locationData) return await createLocationButton(locationData);
+
       return null;
-  }));
+    }),
+  );
   buttons
-  .filter(btn  => btn !== undefined && btn !== null)
-  .forEach((button) => container.appendChild(button));
+    .filter((btn) => btn !== undefined && btn !== null)
+    .forEach((button) => container.appendChild(button));
 
   if (getCurrentSection() === "locations") {
     DOM.main.appendChild(container);
