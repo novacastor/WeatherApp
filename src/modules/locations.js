@@ -3,7 +3,13 @@ import * as DOM from "./domElements.js";
 import { getCityImageUrl } from "./apiServices";
 import { initLocationsListeners } from "./eventHandlers.js";
 import { getCurrentSection, getWeatherIcon } from "./domUtils.js";
-import { getLocations } from "../assets/weather-data/loadData.js";
+import { 
+  getLocations,
+  initLocations,
+  loadCurrentDayHighlights,
+  loadData,
+  setCurrentLocation,
+} from "./storageManager.js";
 
 async function createLocationButton(location) {
   const btn = document.createElement("button");
@@ -58,11 +64,11 @@ async function createLocationButton(location) {
 
   const lowestTempSpan = document.createElement("div");
   lowestTempSpan.classList.add("lowest_temperature");
-  lowestTempSpan.innerHTML = "L: " + location.lowest_temp + "&deg;";
+  lowestTempSpan.innerHTML = "L: " + location.minTemp + "&deg;";
 
   const highestTempSpan = document.createElement("div");
   highestTempSpan.classList.add("highest_temperature");
-  highestTempSpan.innerHTML = "H: " + location.highest_temp + "&deg;";
+  highestTempSpan.innerHTML = "H: " + location.maxTemp + "&deg;";
 
   const lowHighTempContainer = document.createElement("div");
   lowHighTempContainer.classList.add("low-high-temp");
@@ -87,26 +93,33 @@ async function createLocationButton(location) {
     btn.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7))`;
   }
 
-  // Ensure background scales perfectly
   btn.style.backgroundSize = "cover";
   btn.style.backgroundPosition = "center";
   btn.style.backgroundRepeat = "no-repeat";
 
-  // Append all sections to the button
   btn.append(headerContainer, mainContainer, footerContainer);
-
+  btn.id = location.city;
   return btn;
 }
 
 export async function loadLocations() {
+  initLocations();
   DOM.main.innerHTML = "";
   const container = document.createElement("div");
   container.classList.add("location-buttons-container");
 
   const buttons = await Promise.all(
-    getLocations().map((locationData) => createLocationButton(locationData)),
-  );
-  buttons.forEach((button) => container.appendChild(button));
+    getLocations().map(async (loc) => {
+      let locationData = await loadCurrentDayHighlights(loc.city);
+      
+      if(locationData) return await createLocationButton(locationData);
+      
+      return null;
+  }));
+  buttons
+  .filter(btn  => btn !== undefined && btn !== null)
+  .forEach((button) => container.appendChild(button));
+
   if (getCurrentSection() === "locations") {
     DOM.main.appendChild(container);
     initLocationsListeners();

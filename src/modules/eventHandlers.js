@@ -4,6 +4,9 @@ import { loadHome } from "./home.js";
 import { loadLocations } from "./locations.js";
 import { loadForecast } from "./forecast.js";
 import { setCurrentSection } from "./domUtils.js";
+import { getCurrentLocation, markForPermanentStorage, saveAllData } from "./storageManager.js";
+import { setCurrentLocation } from "./storageManager.js";
+import { verifySearch } from "./apiServices.js";
 
 export function initSidebarListeners() {
   DOM.sidebarSettings.addEventListener("click", () => {
@@ -22,35 +25,26 @@ export function initSidebarListeners() {
     setCurrentSection("forecast");
     loadForecast();
   });
-  //     function debounce(fn, delay) {
-  //     let timeout;
-  //     return function () {
-  //         clearTimeout(timeout);
-  //         timeout = setTimeout(() => fn(), delay);
-  //     };
-  //     }
-
-  //     window.addEventListener(
-  //     "resize",
-  //     debounce(() => {
-  //         console.log("Resized to:", window.innerWidth);
-  //           const tenVw = window.innerWidth * 0.1;
-
-  //   // get dynamic border width
-  //   const styles = getComputedStyle(DOM.sidebar);
-  //   const borderLeft = parseFloat(styles.borderLeftWidth) || 0;
-  //   const borderRight = parseFloat(styles.borderRightWidth) || 0;
-
-  //   // subtract borders (like your -4px)
-  //   const finalWidth = tenVw - borderRight;
-
-  //   DOM.sidebar.style.width = `${finalWidth}px`;
-  //     }, 200)
-  //     );
 }
 
-// export function initAnalyticsListeners(context) {
-// }
+export function initHomeListeners() {
+  const searchInput = document.getElementById("search");
+  const searchIcon = document.querySelector(".search-icon");
+  const addCityBtn = document.querySelector(".add-btn");
+
+  addCityBtn.addEventListener('click', () => {
+    const curr_city = getCurrentLocation();
+    if(curr_city) markForPermanentStorage(curr_city);
+    saveAllData();
+    setCurrentSection('locations');
+    loadLocations();
+  });
+  searchInput.addEventListener('keypress', (e) => {
+    if(e.key === "Enter") handleSearch();
+  });
+  searchIcon.addEventListener('click', handleSearch);
+}
+
 export function initSettingsListeners() {
   const btns = document.querySelectorAll(".theme-btn");
   btns.forEach((btn) => {
@@ -67,8 +61,37 @@ export function initLocationsListeners() {
   const locationBtns = document.querySelectorAll(".location-button");
   locationBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
+      setCurrentLocation(btn.id);
       setCurrentSection("home");
+      
       loadHome();
     });
   });
+}
+async function handleSearch() {
+  const city_name = document.querySelector("#search").value.trim();
+  if(!city_name) {
+    return;
+  }
+  console.log("Inside handle Search");
+  console.log("Search disabled");
+  DOM.searchInput.disabled = true;
+  DOM.searchWrapper.classList.add("loading");
+  try{
+    const result = await verifySearch(city_name);
+    if(result.isValid) {
+      setCurrentLocation(result.name);
+      await loadHome();
+      DOM.searchInput.value = "";
+    }else{
+      alert("Sorry couldn't find the city");
+    } 
+  } catch (error) {
+    alert("Connection Error");
+  } finally {
+    DOM.searchWrapper.classList.remove("loading");
+    DOM.searchInput.disabled = false;
+    DOM.searchInput.focus();
+    console.log("Search enabled");
+  }
 }

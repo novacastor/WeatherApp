@@ -57,13 +57,7 @@ export function generateTopBar() {
   return topBar;
 }
 
-export function generateWeatherCardSection(
-  location,
-  temperature,
-  weatherDescription,
-  day,
-  time,
-) {
+export function generateWeatherCardSection(data) {
   const weatherCardSection = document.createElement("section");
   weatherCardSection.classList.add("main-hero");
 
@@ -76,7 +70,7 @@ export function generateWeatherCardSection(
 
   const locationName = document.createElement("h4");
   locationName.classList.add("location-name");
-  locationName.textContent = location;
+  locationName.textContent = data.city + ", " + data.country;
 
   locationHeader.appendChild(locationLabel);
   locationHeader.appendChild(locationName);
@@ -86,15 +80,15 @@ export function generateWeatherCardSection(
 
   const temp = document.createElement("p");
   temp.classList.add("temperature");
-  temp.textContent = `${temperature}°C`;
+  temp.textContent = `${data.curr_temp}°C`;
 
   const description = document.createElement("p");
   description.classList.add("description");
-  description.textContent = weatherDescription;
+  description.textContent = data.weatherDescription;
 
   const dateTime = document.createElement("p");
   dateTime.classList.add("date-time");
-  dateTime.textContent = `${day}, ${time}`;
+  dateTime.textContent = `${data.day}, ${data.time}`;
 
   weatherCard.appendChild(temp);
   weatherCard.appendChild(description);
@@ -167,7 +161,7 @@ export function generateHighlightsGrid(data) {
   windValue.classList.add("value");
 
   windLabel.textContent = "Wind";
-  windValue.textContent = data.wind + " KM/H";
+  windValue.textContent = data.wind + " km/h";
 
   windCard.appendChild(windLabel);
   windCard.appendChild(windValue);

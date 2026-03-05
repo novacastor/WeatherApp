@@ -1,5 +1,5 @@
 import * as DOM from "./domElements.js";
-import { getWeekForecast } from "../assets/weather-data/loadData.js";
+import { getCurrentLocation, loadWeeklyForecast } from "./storageManager.js";
 import {
   setCurrentSection,
   getSunriseIcon,
@@ -55,13 +55,13 @@ function createCard(data) {
   const maxTemp = createMiniCard(
     getMaxTempIcon(),
     "Daytime High",
-    data.highTemp + "°C",
+    data.maxTemp + "°C",
   );
   maxTemp.classList.add("max-temp");
   const minTemp = createMiniCard(
     getMinTempIcon(),
     "Overnight Low",
-    data.lowTemp + "°C",
+    data.minTemp + "°C",
   );
   minTemp.classList.add("min-temp");
   row1.append(
@@ -84,14 +84,19 @@ function createCard(data) {
   return card;
 }
 
-export function loadForecast() {
+export async function loadForecast() {
   if (!DOM.main) return;
   DOM.main.innerHTML = "";
   setCurrentSection("forecast");
 
+  const header = document.createElement('div');
   const container = document.createElement("div");
+  
+  const forecasts = await loadWeeklyForecast();
   container.classList.add("forecasts-container");
+  header.classList.add('forecasts-header');
+  header.innerHTML = `<span>${getCurrentLocation().toUpperCase()}</span>`;
 
-  getWeekForecast().forEach((f) => container.appendChild(createCard(f)));
-  DOM.main.appendChild(container);
+  forecasts.forEach((f) => container.appendChild(createCard(f)));
+  DOM.main.append(header, container);
 }

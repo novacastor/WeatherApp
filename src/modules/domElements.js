@@ -1,5 +1,9 @@
 export const sidebarList = document.querySelectorAll(".nav-list > li");
 
+export const searchInput = document.querySelector("#search");
+export const searchWrapper = document.querySelector(".search-wrapper");
+export const searchIcon = document.querySelector(".search-icon");
+export const addCityBtn = document.querySelector(".add-btn");
 export const highlightsGrid = document.querySelector(".highlights-grid");
 export const tempChart = document.querySelector(".hourly-chart");
 export const rainForecast = document.querySelector(".rain-forecast");

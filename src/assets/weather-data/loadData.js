@@ -97,87 +97,6 @@ const forecasts = [
   },
 ];
 
-let themes = [
-  "default",
-  "aurora",
-  "editorial",
-  "alpine",
-  "ember-spectrum",
-  "slate-pro",
-  "carbon-dark",
-  "notion-clean",
-  "midnight-glass",
-];
-
-const locations = [
-  {
-    city: "Paris",
-    country: "France",
-    curr_temp: 12,
-    highest_temp: 15,
-    lowest_temp: 8,
-    feelslike: 11,
-    day: "Monday",
-    time: "14:30",
-    weatherDescription: "Partly cloudy",
-  },
-  {
-    city: "New York",
-    country: "US",
-    curr_temp: 18,
-    highest_temp: 22,
-    lowest_temp: 14,
-    feelslike: 17,
-    day: "Tuesday",
-    time: "09:15",
-    weatherDescription: "Sunny",
-  },
-  {
-    city: "Tokyo",
-    country: "Japan",
-    curr_temp: 22,
-    highest_temp: 30,
-    lowest_temp: 20,
-    feelslike: 24,
-    day: "Wednesday",
-    time: "20:45",
-    weatherDescription: "Clear sky",
-  },
-  {
-    city: "London",
-    country: "UK",
-    curr_temp: 9,
-    highest_temp: 12,
-    lowest_temp: 6,
-    feelslike: 8,
-    day: "Thursday",
-    time: "11:00",
-    weatherDescription: "Light rain",
-  },
-  {
-    city: "Sydney",
-    country: "Australia",
-    curr_temp: 25,
-    highest_temp: 29,
-    lowest_temp: 21,
-    feelslike: 27,
-    day: "Friday",
-    time: "16:10",
-    weatherDescription: "Warm and sunny",
-  },
-  {
-    city: "Cairo",
-    country: "Egypt",
-    curr_temp: 30,
-    highest_temp: 35,
-    lowest_temp: 24,
-    feelslike: 32,
-    day: "Saturday",
-    time: "13:50",
-    weatherDescription: "Hot and dry",
-  },
-];
-
 const tempForecastData = [
   { time: "09", temp: 21 },
   { time: "10", temp: 23 },
@@ -200,6 +119,88 @@ const rainForecastData = [
   { time: "15", precipitation: 10 },
 ];
 
+let themes = [
+  "default",
+  "aurora",
+  "editorial",
+  "alpine",
+  "ember-spectrum",
+  "slate-pro",
+  "carbon-dark",
+  "notion-clean",
+  "midnight-glass",
+];
+
+const locations = [
+  {
+    city: "Paris",
+    country: "France",
+    curr_temp: 12,
+    maxTemp: 15,
+    minTemp: 8,
+    feelslike: 11,
+    day: "Monday",
+    time: "14:30",
+    weatherDescription: "Partly cloudy",
+  },
+  {
+    city: "New York",
+    country: "US",
+    curr_temp: 18,
+    maxTemp: 22,
+    minTemp: 14,
+    feelslike: 17,
+    day: "Tuesday",
+    time: "09:15",
+    weatherDescription: "Sunny",
+  },
+  {
+    city: "Tokyo",
+    country: "Japan",
+    curr_temp: 22,
+    maxTemp: 30,
+    minTemp: 20,
+    feelslike: 24,
+    day: "Wednesday",
+    time: "20:45",
+    weatherDescription: "Clear sky",
+  },
+  {
+    city: "London",
+    country: "UK",
+    curr_temp: 9,
+    maxTemp: 12,
+    minTemp: 6,
+    feelslike: 8,
+    day: "Thursday",
+    time: "11:00",
+    weatherDescription: "Light rain",
+  },
+  {
+    city: "Sydney",
+    country: "Australia",
+    curr_temp: 25,
+    maxTemp: 29,
+    minTemp: 21,
+    feelslike: 27,
+    day: "Friday",
+    time: "16:10",
+    weatherDescription: "Warm and sunny",
+  },
+  {
+    city: "Cairo",
+    country: "Egypt",
+    curr_temp: 30,
+    maxTemp: 35,
+    minTemp: 24,
+    feelslike: 32,
+    day: "Saturday",
+    time: "13:50",
+    weatherDescription: "Hot and dry",
+  },
+];
+
+
 export function getTodayHighlights() {
   const today = forecasts[0];
   return {
@@ -210,21 +211,30 @@ export function getTodayHighlights() {
     wind: today.wind,
   };
 }
+
 export function getLocations() {
   return locations;
 }
+export function setLocation() {
+
+}
+
 export function getThemes() {
   return themes;
 }
-export function getWeekForecast() {
+
+export function getForecast() {
   return forecasts.slice(1, 7);
 }
+
 export function getRainForecast() {
   return rainForecastData;
 }
+
 export function getTempForecast() {
   return tempForecastData;
 }
+
 export function getThreeDayForecast() {
   return forecasts
     .map((forecast) => ({
@@ -233,4 +243,8 @@ export function getThreeDayForecast() {
       maxTemp: forecast.maxTemp,
     }))
     .slice(1, 4);
+}
+
+export function fetchData() {
+    
 }

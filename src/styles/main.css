@@ -1,10 +1,10 @@
 @import "./sidebar.css";
-@import "./sidebar-analytics.css/header.css";
-@import "./sidebar-analytics.css/main-hero.css";
-@import "./sidebar-analytics.css/highlights-grid.css";
-@import "./sidebar-analytics.css/hourly-chart.css";
-@import "./sidebar-analytics.css/rain-forecast.css";
-@import "./sidebar-analytics.css/three-day-forecast.css";
+@import "./home/header.css";
+@import "./home/main-hero.css";
+@import "./home/highlights-grid.css";
+@import "./home/hourly-chart.css";
+@import "./home/rain-forecast.css";
+@import "./home/three-day-forecast.css";
 @import "./themes.css";
 @import "./sidebar-settings.css";
 @import "./sidebar-locations.css";

@@ -5,35 +5,38 @@ import {
   generateTemperatureChart,
   generateRainForecast,
   generateThreeDayForecast,
+  setCurrentSection,
 } from "./domUtils.js";
 
 import {
-  getTempForecast,
-  getRainForecast,
-  getThreeDayForecast,
-  getTodayHighlights,
-} from "../assets/weather-data/loadData.js";
+  setCurrentLocation,
+  loadCurrentDayHighlights,
+  loadHourlyTempForecast,
+  loadHourlyRainForecast,
+  loadThreeDayForecast,
+} from "./storageManager.js";
+
 import * as DOM from "./domElements.js";
-// import { initAnalyticsListeners } from "./eventHandlers.js";
+import { initHomeListeners } from "./eventHandlers.js";
 
-export function loadHome() {
-  const topBar = generateTopBar();
-
-  const weatherCardSection = generateWeatherCardSection(
-    "Kolkata, West Bengal, India",
-    30,
-    "Rainy",
-    "Monday",
-    "3:04",
-  );
-
-  // console.log("forecas: " + getThreeDayForecast());
-  const highlightsGrid = generateHighlightsGrid(getTodayHighlights());
-  const tempChart = generateTemperatureChart(getTempForecast());
-  const rainForecast = generateRainForecast(getRainForecast());
-  const threeDayForecastAside = generateThreeDayForecast(getThreeDayForecast());
-
+export async function loadHome() {
   DOM.main.innerHTML = "";
+  // setCurrentLocation('Delhi');
+  
+  const highlights_data = await loadCurrentDayHighlights();
+  const temp_forecast_data = await loadHourlyTempForecast();
+  const rain_forecast_data = await loadHourlyRainForecast();
+  const three_day_forecast_data = await loadThreeDayForecast();
+  
+  
+  // console.log("forecas: " + getThreeDayForecast());
+  const topBar = generateTopBar();
+  const weatherCardSection = generateWeatherCardSection(highlights_data);
+  const highlightsGrid = generateHighlightsGrid(highlights_data);
+  const tempChart = generateTemperatureChart(temp_forecast_data);
+  const rainForecast = generateRainForecast(rain_forecast_data);
+  const threeDayForecastAside = generateThreeDayForecast(three_day_forecast_data);
+
   DOM.main.append(
     topBar,
     weatherCardSection,
@@ -42,5 +45,5 @@ export function loadHome() {
     rainForecast,
     threeDayForecastAside,
   );
-  // initAnalyticsListeners();
+  initHomeListeners();
 }

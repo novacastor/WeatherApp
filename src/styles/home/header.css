@@ -21,6 +21,13 @@ header {
     outline 0.2s ease,
     box-shadow 0.2s ease;
 }
+/* Add this to your header CSS */
+.search-wrapper.loading {
+  opacity: 0.6;
+  cursor: wait;
+  pointer-events: none; /* Prevents clicks on the icon */
+}
+
 .search-wrapper:focus-within {
   outline: 1px solid var(--color-secondary);
   box-shadow: var(--ui-shadow);
@@ -34,6 +41,13 @@ header {
   background-color: var(--ui-input-bg);
   color: var(--text-muted);
 }
+
+#search:disabled {
+  cursor: wait;
+  color: var(--text-muted);
+  background-color: transparent; /* Keep it looking consistent */
+}
+
 .search-icon {
   cursor: pointer;
   color: var(--text-muted);
