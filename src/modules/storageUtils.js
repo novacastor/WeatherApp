@@ -27,6 +27,3 @@ export const getFromStorage = (key) => {
     return null;
   }
 };
-export function getThemes() {
-  return themes;
-}

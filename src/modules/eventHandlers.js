@@ -16,18 +16,22 @@ export function initSidebarListeners() {
   DOM.sidebarSettings.addEventListener("click", () => {
     setCurrentSection("settings");
     loadSettings();
+    saveAllData();
   });
   DOM.sidebarHome.addEventListener("click", () => {
     setCurrentSection("home");
     loadHome();
+    saveAllData();
   });
   DOM.sidebarLocations.addEventListener("click", () => {
     setCurrentSection("locations");
     loadLocations();
+    saveAllData();
   });
   DOM.sidebarForecast.addEventListener("click", () => {
     setCurrentSection("forecast");
     loadForecast();
+    saveAllData();
   });
 }
 

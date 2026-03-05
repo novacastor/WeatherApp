@@ -1,6 +1,6 @@
 import * as DOM from "./domElements.js";
 import { initSettingsListeners } from "./eventHandlers.js";
-import { getThemes } from "./storageUtils.js";
+import { getThemes } from "./storageManager.js";
 
 function createThemeBtn(name) {
   const btn = document.createElement("button");

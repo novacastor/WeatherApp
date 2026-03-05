@@ -39,6 +39,9 @@ let initialCities = [
   "Beijing",
   "Murshidabad",
 ];
+export const getThemes = () => {
+  return themes;
+};
 export const getLocations = () => {
   return locations;
 };
