@@ -6,7 +6,7 @@ import {
 } from "./storageUtils.js";
 
 let locations = [];
-let currentCity = localStorage.getItem("selectedCity") || "Kolkata";
+let currentCity = localStorage.getItem("selectedCity") || "Srinagar";
 
 export const getCurrentLocation = () => {
   return currentCity;

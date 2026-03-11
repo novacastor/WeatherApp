@@ -5,6 +5,7 @@ import {
   generateTemperatureChart,
   generateRainForecast,
   generateThreeDayForecast,
+  getCurrentSection,
 } from "./domUtils.js";
 
 import {
@@ -18,7 +19,6 @@ import * as DOM from "./domElements.js";
 import { initHomeListeners } from "./eventHandlers.js";
 
 export async function loadHome() {
-  DOM.main.innerHTML = "";
   // setCurrentLocation('Delhi');
 
   const highlights_data = await loadCurrentDayHighlights();
@@ -36,13 +36,16 @@ export async function loadHome() {
     three_day_forecast_data,
   );
 
-  DOM.main.append(
-    topBar,
-    weatherCardSection,
-    highlightsGrid,
-    tempChart,
-    rainForecast,
-    threeDayForecastAside,
-  );
-  initHomeListeners();
+  if(getCurrentSection() === 'home') {
+    DOM.main.innerHTML= '';
+    DOM.main.append(
+      topBar,
+      weatherCardSection,
+      highlightsGrid,
+      tempChart,
+      rainForecast,
+      threeDayForecastAside,
+    );
+    initHomeListeners();
+  }
 }

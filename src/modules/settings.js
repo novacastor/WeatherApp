@@ -1,4 +1,5 @@
 import * as DOM from "./domElements.js";
+import { getCurrentSection } from "./domUtils.js";
 import { initSettingsListeners } from "./eventHandlers.js";
 import { getThemes } from "./storageManager.js";
 
@@ -11,14 +12,13 @@ function createThemeBtn(name) {
   return btn;
 }
 export function loadSettings() {
-  DOM.main.innerHTML = "";
   const themeGrid = document.createElement("div");
   themeGrid.classList.add("theme-grid");
-
+  
   const themeLabel = document.createElement("div");
   themeLabel.classList.add("label");
   themeLabel.textContent = "Themes";
-
+  
   getThemes().forEach((theme) => {
     let themeBtn = createThemeBtn(theme);
     themeGrid.appendChild(themeBtn);
@@ -26,8 +26,10 @@ export function loadSettings() {
       themeBtn.classList.add("active");
     }
   });
-
-  DOM.main.appendChild(themeLabel);
-  DOM.main.appendChild(themeGrid);
-  initSettingsListeners();
+  if(getCurrentSection() === 'settings') {
+    DOM.main.innerHTML = "";
+    DOM.main.appendChild(themeLabel);
+    DOM.main.appendChild(themeGrid);
+    initSettingsListeners();
+  }
 }
